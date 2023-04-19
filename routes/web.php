@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('user.home.index');
 });
+Route::get('/Login', function () {
+    return view('home');
+});
 
 
 Auth::routes();
@@ -24,5 +27,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['role:admin'])->prefix('admin_panel')->group(function (){
     Route::get('/',[App\Http\Controllers\Admin\HomeController::class, 'index']);
+    Route::resource('section', \App\Http\Controllers\Admin\SectionController::class);
 });
 
