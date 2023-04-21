@@ -73,31 +73,18 @@
                     </li>
                     {{--                    Посты (Post)--}}
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="" class="nav-link">
                             <i class="nav-icon fas fa-newspaper"></i>
                             <p>
-                                Посты
+                                Пользователи
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{route('user.index')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Все посты</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Добавить пост</p>
-                                </a>
-                            </li>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Предложенные посты</p>
+                                    <p>Все пользователи</p>
                                 </a>
                             </li>
                         </ul>
@@ -124,6 +111,30 @@
                                 <a href="{{route('section.create')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Добавить раздел</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-align-left"></i>
+                            <p>
+                                Темы
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('theme.index')}}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Все темы</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('theme.create')}}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Добавить тему</p>
                                 </a>
                             </li>
                         </ul>

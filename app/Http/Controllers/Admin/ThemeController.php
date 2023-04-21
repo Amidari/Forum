@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Section;
+use App\Models\Theme;
 use Illuminate\Http\Request;
 
-class SectionController extends Controller
+class ThemeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,11 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $section = Section::all();
-        return view('admin.section.index',[
-            'sections'=>$section,
+        $theme = Theme::all();
+        $sections = Section::all();
+        return view('admin.theme.index',[
+            'thems'=>$theme,
+            'sections' => $sections
         ]);
     }
 
@@ -28,7 +31,11 @@ class SectionController extends Controller
      */
     public function create()
     {
-        return view('admin.section.create');
+        $sections = Section::all();
+
+        return view('admin.theme.create',[
+            'sections' => $sections,
+        ]);
     }
 
     /**
@@ -39,20 +46,22 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        $section = new Section();
-        $section->title = $request->title;
-        $section->save();
 
-        return redirect()->back()->withSuccess('Раздел успешно добавлен');
+        $theme = new Theme();
+        $theme->title = $request->title;
+        $theme->section_id = $request->section_id;
+        $theme->save();
+
+        return redirect()->back()->withSuccess('Тема успешно добавлена');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Section  $section
+     * @param  \App\Models\Theme  $theme
      * @return \Illuminate\Http\Response
      */
-    public function show(Section $section)
+    public function show(Theme $theme)
     {
         //
     }
@@ -60,13 +69,16 @@ class SectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Section  $section
+     * @param  \App\Models\Theme  $theme
      * @return \Illuminate\Http\Response
      */
-    public function edit(Section $section)
+    public function edit(Theme $theme)
     {
-        return view('admin.section.edit',[
-            'section' => $section,
+        $section = Section::all();
+
+        return view('admin.theme.edit',[
+            'theme' => $theme,
+            'sections' => $section
         ]);
     }
 
@@ -74,26 +86,27 @@ class SectionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Section  $section
+     * @param  \App\Models\Theme  $theme
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Section $section)
+    public function update(Request $request, Theme $theme)
     {
-        $section->title = $request->title;
-        $section->save();
+        $theme->title = $request->title;
+        $theme->section_id = $request->section_id;
+        $theme->save();
         return redirect()->back()->withSuccess('Раздел успешно обновлен');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Section  $section
+     * @param  \App\Models\Theme  $theme
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Section $section)
+    public function destroy(Theme $theme)
     {
-        $section->delete();
+        $theme->delete();
 
-        return redirect()->back()->withSuccess('Раздел успешно удален');
+        return redirect()->back()->withSuccess('Тема успешно удалена');
     }
 }

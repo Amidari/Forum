@@ -28,5 +28,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['role:admin'])->prefix('admin_panel')->group(function (){
     Route::get('/',[App\Http\Controllers\Admin\HomeController::class, 'index']);
     Route::resource('section', \App\Http\Controllers\Admin\SectionController::class);
+    Route::resource('theme', \App\Http\Controllers\Admin\ThemeController::class);
+    Route::resource('user', \App\Http\Controllers\Admin\UserController::class);
 });
 

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Section;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class SectionController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,10 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $section = Section::all();
-        return view('admin.section.index',[
-            'sections'=>$section,
+        dd();
+        $user = User::all();
+        return view('admin.user.index',[
+           'users' => $user,
         ]);
     }
 
@@ -28,7 +29,7 @@ class SectionController extends Controller
      */
     public function create()
     {
-        return view('admin.section.create');
+        //
     }
 
     /**
@@ -39,20 +40,16 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        $section = new Section();
-        $section->title = $request->title;
-        $section->save();
-
-        return redirect()->back()->withSuccess('Раздел успешно добавлен');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Section  $section
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Section $section)
+    public function show(User $user)
     {
         //
     }
@@ -60,40 +57,34 @@ class SectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Section  $section
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Section $section)
+    public function edit(User $user)
     {
-        return view('admin.section.edit',[
-            'section' => $section,
-        ]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Section  $section
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Section $section)
+    public function update(Request $request, User $user)
     {
-        $section->title = $request->title;
-        $section->save();
-        return redirect()->back()->withSuccess('Раздел успешно обновлен');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Section  $section
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Section $section)
+    public function destroy(User $user)
     {
-        $section->delete();
-
-        return redirect()->back()->withSuccess('Раздел успешно удален');
+        //
     }
 }
