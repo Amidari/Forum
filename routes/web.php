@@ -12,18 +12,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('user.home.index');
-});
-Route::get('/Login', function () {
-    return view('home');
-});
-
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::redirect('/home', '/');
+
+Route::resource('post', \App\Http\Controllers\PostController::class);
+
+Route::get('/profile/{name}/{id}', [\App\Http\Controllers\HomeController::class, 'show']);
 
 Route::middleware(['role:admin'])->prefix('admin_panel')->group(function (){
     Route::get('/',[App\Http\Controllers\Admin\HomeController::class, 'index']);
@@ -31,4 +27,3 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group(function (){
     Route::resource('theme', \App\Http\Controllers\Admin\ThemeController::class);
     Route::resource('user', \App\Http\Controllers\Admin\UserController::class);
 });
-

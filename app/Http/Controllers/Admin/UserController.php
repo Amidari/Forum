@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -51,7 +53,12 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+//        $posts = Post::where('author_id', $user['id'])->get();
+//
+//        return view('user.profile',[
+//            'user' => $user,
+//            'posts' => $posts
+//        ]);
     }
 
     /**
@@ -62,7 +69,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $roles = Role::where('name', '!=', 'admin')->get();
+
+        return view('admin.user.edit', [
+            'user' => $user,
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -74,7 +86,17 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+
+        $roles = Role::all();
+        foreach ($roles as $role) {
+            $user->removeRole($role['name']);
+        }
+        $user->assignRole($request->role_name);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        return redirect()->route('user.index')->withSuccess('Пользоваетль успешно обновлен');
     }
 
     /**
@@ -85,6 +107,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->back()->withSuccess('Пользователь удален');
     }
 }
