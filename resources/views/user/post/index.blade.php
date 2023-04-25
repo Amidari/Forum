@@ -11,10 +11,12 @@
             </div>
         @endif
 
-
-        <h2 class="mt-3">{{$theme}}</h2>
-        <a href="{{route('post.create')}}/?theme={{$themeId}}" type="button" class="btn btn-success mt-4">Добавить статью</a>
-
+        @foreach($thems as $theme)
+        <h2 class="mt-3">{{$theme['title']}}</h2>
+        @endforeach
+            @hasanyrole('user|moder|admin')
+        <a href="{{route('post.create')}}" type="button" class="btn btn-success mt-4">Добавить статью</a>
+            @endhasanyrole
 
         <table class="table projects mt-4">
 
@@ -34,7 +36,7 @@
                         @endif
                         @endforeach
                     </td>
-                    @role('moder')
+                    @hasanyrole('moder|admin')
                     <td class="project-actions text-right">
                         <a class="btn btn-info btn-sm"
                            href="#">
@@ -53,15 +55,16 @@
                             </button>
                         </form>
                     </td>
-                    @endrole
+                    @endhasanyrole
                 </tr>
 
             @endforeach
 
-
         </table>
 
-
+            <div class="text-center">
+                {{ $posts->links() }}
+            </div>
     </div>
 
 @endsection

@@ -6,26 +6,31 @@ use App\Models\Post;
 use App\Models\Theme;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+session_start();
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(string $id)
     {
-        $themeId = htmlspecialchars($_GET["theme"]);
-        $posts = Post::where('theme_id', $themeId)->get();
+        dd($id);
+        if (isset($_SERVER['QUERY_STRING'])){
+            $_SESSION['theme'] = $_SERVER['QUERY_STRING'];
+        }
+        $themeId = $_SESSION['theme'];
+        var_dump($themeId);
+        $posts = Post::where('theme_id',$themeId)->Paginate(10);
         $thems = Theme::where('id', $themeId)->get();
         $users = User::all();
-        foreach ($thems as $theme);
+        //foreach ($thems as $theme);
 
         return view('user.post.index', [
             'posts' => $posts,
-            'themeId' => $themeId,
-            'theme' => $theme['title'],
+            //'themeId' => $themeId,
+            'thems' => $thems,
             'users' => $users,
         ]);
     }
@@ -79,7 +84,6 @@ class PostController extends Controller
        return view('user.post.show',[
            'post' => $post,
            'user' => $user,
-           'userName' => $user['name'],
        ]);
     }
 
@@ -119,5 +123,22 @@ class PostController extends Controller
     {
         //
     }
+
+    public function postId($id){
+
+
+        $posts = Post::orderBy('created_at', 'DESC')->where('theme_id',$id)->Paginate(10);
+        $thems = Theme::where('id', $id)->get();
+        $users = User::all();
+
+        return view('user.post.index', [
+            'posts' => $posts,
+            //'themeId' => $themeId,
+            'thems' => $thems,
+            'users' => $users,
+        ]);
+
+    }
+
 
 }

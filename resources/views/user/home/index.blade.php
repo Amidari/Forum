@@ -30,11 +30,13 @@
                                     </tr>
                                     </thead>
                                     @foreach($thems as $theme)
+
                                         @if($section['title'] == $theme->section['title'])
                                             <tbody>
+
                                             <tr>
                                                 <td>
-                                                    <a href="{{route('post.index')}}/?theme={{$theme['id']}}">{{$theme['title']}}</a>
+                                                    <a href="{{route('post.postId', $theme['id'])}}">{{$theme['title']}}</a>
                                                 </td>
                                             </tr>
                                             </tbody>

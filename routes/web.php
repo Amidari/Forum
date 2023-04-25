@@ -17,6 +17,7 @@ Auth::routes();
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::redirect('/home', '/');
 
+Route::get('post/theme/{id}', [\App\Http\Controllers\PostController::class, 'postId'])->name('post.postId');
 Route::resource('post', \App\Http\Controllers\PostController::class);
 
 Route::get('/profile/{name}/{id}', [\App\Http\Controllers\HomeController::class, 'show']);

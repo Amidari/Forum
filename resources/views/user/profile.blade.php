@@ -4,10 +4,25 @@
 
 @section('content')
     <div class="container">
-
-        <h2 class="mt-3">{{$user}}</h2>
+<h1 class="text-center mt-4">Профиль</h1>
+        <h2 class="mt-3">Пользователь: {{$user}}</h2>
 
         <table class="table projects mt-4">
+
+                <tr>
+                    <td>
+                        Пост
+                    </td>
+                    <td>
+                        Дата
+                    </td>
+                    @if (isset(Auth::user()->name) and $user == Auth::user()->name)
+                    <td>
+                        Управление
+                    </td>
+                    @endif
+                </tr>
+
 
             @foreach($posts as $post)
 
@@ -19,6 +34,8 @@
                     <td>
                         {{$post['created_at']}}
                     </td>
+
+                    @if (isset(Auth::user()->name) and $user == Auth::user()->name)
                     <td class="project-actions text-right">
                         <a class="btn btn-info btn-sm"
                            href="#">
@@ -37,13 +54,14 @@
                             </button>
                         </form>
                     </td>
+                    @endif
                 </tr>
 
             @endforeach
 
 
         </table>
-
+        
 
     </div>
 
