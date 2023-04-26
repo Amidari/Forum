@@ -3,13 +3,16 @@
 @section('title', 'Добавить пост')
 
 @section('content')
+
     <div class="container">
 
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Добавить статью</h1>
+                        @foreach($thems as $theme)
+                        <h1 class="m-0">Добавить статью для темы: {{$theme['title']}}</h1>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -27,8 +30,8 @@
                                         <input type="text" name="title" class="form-control" id="exampleInput" placeholder="Введите заголовок" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInput">Текст</label>
-                                        <textarea name="text" rows="10" class="form-control" id="exampleInput" placeholder="Введите текст" required></textarea>
+                                        <label for="summernote">Текст</label>
+                                        <textarea name="text" id="summernote" rows="15" class="form-control" placeholder="Введите текст" required></textarea>
                                     </div>
                                 </div>
                                 <div class="card-footer">
@@ -44,5 +47,12 @@
 
 
     </div>
+
+
+    <script>
+        $(document).ready(function() {
+            $("#summernote").summernote();
+        });
+    </script>
 
 @endsection

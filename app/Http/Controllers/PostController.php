@@ -11,40 +11,41 @@ class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @param  string  $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index(string $id)
+    public function index()
     {
-        dd($id);
-        if (isset($_SERVER['QUERY_STRING'])){
-            $_SESSION['theme'] = $_SERVER['QUERY_STRING'];
-        }
-        $themeId = $_SESSION['theme'];
-        var_dump($themeId);
-        $posts = Post::where('theme_id',$themeId)->Paginate(10);
-        $thems = Theme::where('id', $themeId)->get();
-        $users = User::all();
-        //foreach ($thems as $theme);
-
-        return view('user.post.index', [
-            'posts' => $posts,
-            //'themeId' => $themeId,
-            'thems' => $thems,
-            'users' => $users,
-        ]);
+       dd('$id');
+//        if (isset($_SERVER['QUERY_STRING'])){
+//            $_SESSION['theme'] = $_SERVER['QUERY_STRING'];
+//        }
+//        $themeId = $_SESSION['theme'];
+//        var_dump($themeId);
+//        $posts = Post::where('theme_id',$themeId)->Paginate(10);
+//        $thems = Theme::where('id', $themeId)->get();
+//        $users = User::all();
+//        //foreach ($thems as $theme);
+//
+//        return view('user.post.index', [
+//            'posts' => $posts,
+//            //'themeId' => $themeId,
+//            'thems' => $thems,
+//            'users' => $users,
+//        ]);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
+     * @param integer $themeId
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(int $themeId)
     {
-        $themeId = (htmlspecialchars($_GET["theme"]));
+        $thems = Theme::where('id', $themeId)->get();
         return view('user.post.create', [
             'themeId' => $themeId,
+            'thems' => $thems,
         ]);
     }
 
@@ -65,7 +66,7 @@ class PostController extends Controller
         $post->author_id = $user['id'];
         $post->theme_id = $request->themeId;
         $post->save();
-        return redirect("post/?theme=$request->themeId")->withSuccess('Тема успешно добавлена');
+        return redirect("/")->withSuccess('Тема успешно добавлена');
 
 
     }
@@ -121,7 +122,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->back()->withSuccess('Раздел успешно удален');
     }
 
     public function postId($id){

@@ -15,7 +15,7 @@
         <h2 class="mt-3">{{$theme['title']}}</h2>
         @endforeach
             @hasanyrole('user|moder|admin')
-        <a href="{{route('post.create')}}" type="button" class="btn btn-success mt-4">Добавить статью</a>
+        <a href="{{route('post.create.new', $theme['id'])}}" type="button" class="btn btn-success mt-4">Добавить статью</a>
             @endhasanyrole
 
         <table class="table projects mt-4">
@@ -32,29 +32,12 @@
                     </td>
                     <td>@foreach($users as $user)
                         @if($user['id'] == $post['author_id'])
-                            {{$user['name']}}
+                                <a href="/profile/{{$user['name']}}/{{$user['id']}}">{{$user['name']}}</a>
                         @endif
                         @endforeach
                     </td>
                     @hasanyrole('moder|admin')
-                    <td class="project-actions text-right">
-                        <a class="btn btn-info btn-sm"
-                           href="#">
-                            <i class="fas fa-pencil-alt">
-                            </i>
-                            Изменить
-                        </a>
-                        <form action="#"
-                              method="POST" style="display: inline-block">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" href="#">
-                                <i class="fas fa-trash">
-                                </i>
-                                Удалить
-                            </button>
-                        </form>
-                    </td>
+                    @include('panel.edit-delite')
                     @endhasanyrole
                 </tr>
 

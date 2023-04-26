@@ -36,24 +36,7 @@
                     </td>
 
                     @if (isset(Auth::user()->name) and $user == Auth::user()->name)
-                    <td class="project-actions text-right">
-                        <a class="btn btn-info btn-sm"
-                           href="#">
-                            <i class="fas fa-pencil-alt">
-                            </i>
-                            Изменить
-                        </a>
-                        <form action="#"
-                              method="POST" style="display: inline-block">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" href="#">
-                                <i class="fas fa-trash">
-                                </i>
-                                Удалить
-                            </button>
-                        </form>
-                    </td>
+                        @include('panel.edit-delite')
                     @endif
                 </tr>
 
