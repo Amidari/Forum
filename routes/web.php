@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
+
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::redirect('/home', '/');
 
@@ -21,7 +22,9 @@ Route::get('post/theme/{id}', [\App\Http\Controllers\PostController::class, 'pos
 Route::get('post/create/{themeId}', [\App\Http\Controllers\PostController::class, 'create'])->name('post.create.new');
 Route::resource('post', \App\Http\Controllers\PostController::class);
 
-Route::get('/profile/{name}/{id}', [\App\Http\Controllers\HomeController::class, 'show']);
+Route::get('/profile/{name}', [\App\Http\Controllers\HomeController::class, 'show']);
+Route::get('/profile/ban/{user}', [\App\Http\Controllers\HomeController::class, 'ban'])->name('profile.ban');
+Route::get('/profile/unban/{user}', [\App\Http\Controllers\HomeController::class, 'unban'])->name('profile.unban');
 
 Route::middleware(['role:admin'])->prefix('admin_panel')->group(function (){
     Route::get('/',[App\Http\Controllers\Admin\HomeController::class, 'index']);

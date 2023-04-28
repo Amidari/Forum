@@ -14,10 +14,15 @@
         @foreach($thems as $theme)
         <h2 class="mt-3">{{$theme['title']}}</h2>
         @endforeach
+            @if($theme['id']!=1)
             @hasanyrole('user|moder|admin')
         <a href="{{route('post.create.new', $theme['id'])}}" type="button" class="btn btn-success mt-4">Добавить статью</a>
             @endhasanyrole
-
+            @else
+                @hasanyrole('admin')
+                <a href="{{route('post.create.new', $theme['id'])}}" type="button" class="btn btn-success mt-4">Добавить статью</a>
+                @endhasanyrole
+            @endif
         <table class="table projects mt-4">
 
             @foreach($posts as $post)
@@ -32,7 +37,7 @@
                     </td>
                     <td>@foreach($users as $user)
                         @if($user['id'] == $post['author_id'])
-                                <a href="/profile/{{$user['name']}}/{{$user['id']}}">{{$user['name']}}</a>
+                                <a href="/profile/{{$user['name']}}">{{$user['name']}}</a>
                         @endif
                         @endforeach
                     </td>

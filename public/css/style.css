@@ -1,0 +1,17 @@
+html
+{
+    position: relative;
+    min-height: 100%;
+}
+header{
+    margin-bottom: 50px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 100px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

@@ -57,6 +57,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'text' => 'required|string'
+        ]);
 
         $user = auth()->user();
         $post = new Post();
@@ -79,12 +83,15 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $thems = Theme::where('id', $post['theme_id'])->get();
         $users = User::where('id', $post['author_id'])->get();
         foreach ($users as $user);
+
 
        return view('user.post.show',[
            'post' => $post,
            'user' => $user,
+           'thems' => $thems
        ]);
     }
 
@@ -98,7 +105,7 @@ class PostController extends Controller
     {
 
         return view('user.post.edit', [
-            'id' => $post
+            'post' => $post
         ]);
     }
 
@@ -111,7 +118,16 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'text' => 'required|string'
+        ]);
+
+        $post->title = $request->title;
+        $post->text = $request->text;
+        $post->save();
+        return redirect()->back()->withSuccess('Пост успешно обновлен');
+
     }
 
     /**

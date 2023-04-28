@@ -3,23 +3,29 @@
 @section('title', 'Пост')
 
 @section('content')
-<div class="container">
+    <div class="container mt-5">
 
-
-
-
-    <div class="card mt-4">
-        <div class="card-body mt-4">
-            <p class="card-title col-md-10"><a href="/profile/{{$user['name']}}/{{$user['id']}}">{{$user['name']}}</a></p>
-            <p class="card-title col-md">{{$post['created_at']}}</p>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">
-                Тема: {{$post['title']}}</h5>
-            <p class="card-text">{!! $post['text'] !!}</p>
+        <div class="card">
+            <div class="card-title mt-3 ml-3">
+                @foreach($thems as $theme)
+                    <h2 class="m-0">Тема: {{$theme['title']}}</h2>
+                @endforeach
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr class="table-primary">
+                        <th colspan="2">
+                            Тема: {{$post['title']}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <td width="15%"><a href="/profile/{{$user['name']}}">{{$user['name']}}</a>
+                            <br> {{$post['created_at']}}</td>
+                        <td>{!! $post['text'] !!}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-
-</div>
 
 @endsection

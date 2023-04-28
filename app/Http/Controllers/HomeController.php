@@ -35,14 +35,30 @@ class HomeController extends Controller
         ]);
     }
 
-    public function show($userName, $userId)
+    public function show($userName)
     {
-
-        $posts = Post::where('author_id', $userId)->get();
-
+        $users = User::where('name', $userName)->get();
+        foreach ($users as $user);
+        $posts = Post::where('author_id', $user['id'])->get();
         return view('user.profile',[
-            'user' => $userName,
+            'user' => $user,
             'posts' => $posts
         ]);
+    }
+
+    public function ban(User $user){
+
+        $user->removeRole('user');
+        $user->assignRole('ban');
+
+        return redirect()->back()->withSuccess('Пользователь заблокирован');
+    }
+
+    public function unban(User $user){
+
+        $user->removeRole('ban');
+        $user->assignRole('user');
+
+        return redirect()->back()->withSuccess('Пользователь разблокирован');
     }
 }

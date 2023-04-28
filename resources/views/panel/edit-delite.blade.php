@@ -1,6 +1,6 @@
 <td class="project-actions text-right">
     <a class="btn btn-info btn-sm"
-       href="#">
+       href="{{route('post.edit', $post)}}">
         <i class="fas fa-pencil-alt">
         </i>
         Изменить
